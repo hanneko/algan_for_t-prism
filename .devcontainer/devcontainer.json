@@ -1,0 +1,64 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.202.3/containers/python-3
+{
+	"name": "algan_tprism_container",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	// コンテナ作成時（厳密には作成後）に実行するコマンド
+	"postCreateCommand": "pip install -r .devcontainer/requirements.txt",
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.profiles.linux": {
+			"bash": {
+				"path": "/bin/bash"
+			}
+		},
+		// flake8, mypy, black, isortの設定
+		"python.pythonPath": "/usr/local/bin/python",
+		"python.linting.pylintEnabled": false,
+		"python.linting.flake8Enabled": true,
+		"python.linting.flake8Args": [
+			"--ignore=E402,E501"
+		],
+		"python.linting.mypyEnabled": true //,
+		// "python.formatting.provider": "black",
+		// "editor.formatOnSave": true,
+		// "editor.codeActionsOnSave": {
+		// 	"source.organizeImports": true
+		// }
+	},
+	// 拡張機能の設定
+	"extensions": [
+		"ms-ceintl.vscode-language-pack-ja",
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"oderwat.indent-rainbow",
+		"visualstudioexptteam.vscodeintellicode",
+		"mechatroner.rainbow-csv",
+		"redhat.vscode-yaml",
+		"ms-toolsai.jupyter-renderers",
+		"zainchen.json",
+		"ms-azuretools.vscode-docker",
+		"kevinrose.vsc-python-indent",
+		"mhutchie.git-graph",
+		"mosapride.zenkaku",
+		"njpwerner.autodocstring",
+		"aprilandjan.ascii-tree-generator"
+	],
+	"runArgs": [
+		"--name",
+		"algan_tprism_container",
+		"--gpus",
+		"all",
+		"--shm-size",
+		"16gb",
+		"-e",
+		"LOCAL_UID=(id -u)",
+		"-e",
+		"LOCAL_GID=(id -g)"
+	],
+	// コンテナ内でrootで実行しない用のユーザー
+	"remoteUser": "vscode"
+}
