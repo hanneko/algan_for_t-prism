@@ -7,9 +7,7 @@ from copy import deepcopy
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-# import torch.utils.data as data
 import torch.nn as nn
-# import torchvision
 from sklearn.metrics import roc_auc_score, roc_curve
 
 import config as c
@@ -412,7 +410,7 @@ def predict_full_gan(D_trained, data_loader_list, iteration, epoch, val=True):
         histtype="stepfilled",
         range=(axis_min, axis_max),
         label="anomalous",
-        color = ["#ff7f0e"]
+        color=["#ff7f0e"]
     )
     plt.hist(
         score_normal,
@@ -421,7 +419,7 @@ def predict_full_gan(D_trained, data_loader_list, iteration, epoch, val=True):
         histtype="stepfilled",
         range=(axis_min, axis_max),
         label="normal",
-        color = ["#1f77b4"]
+        color=["#1f77b4"]
     )
     plt.legend(loc="upper left")
     # save

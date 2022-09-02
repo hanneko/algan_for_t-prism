@@ -1,5 +1,5 @@
 # ALGAN for T-PRISM
-T-PRISMのためのALGAN実装
+### T-PRISMのためのALGAN実装
 
 [T-PRISM：深層学習と論理プログラミングの融合](https://www.jstage.jst.go.jp/article/jjsai/36/4/36_437/_article/-char/ja/)\
 小島 諒介, 佐藤 泰介
@@ -8,19 +8,64 @@ T-PRISMのためのALGAN実装
 ## How To Use This Code
 You will need:
 
-- [PyTorch](https://PyTorch.org/), version 1.8.1 later
-- Recommendation: [NVIDIA Docker PyTorch Container](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch)
-- The MNIST dataset
+- [PyTorch](https://PyTorch.org/) version 1.8.1 later, matplotlib, scikit-learn
+- Recommendation: [NVIDIA GPU CLOUD PyTorch Docker Container](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch)
+
+  `nvcr.io/nvidia/pytorch:22.07-py3` satisfies all the requirements.
+- The MNIST dataset (Automatically downloaded.)
+
+
+### 初期値からの訓練
+`src` ディレクトリへ移動し `main.py` を実行。GPUの有無は自動で判定する。正常・異常のクラスやパラメタを変更したい場合は `config.py` にて設定する。
+
 
 ```sh
 cd src
 python main.py
 ```
 
+### 学習済みモデルによる異常検知
+`src` ディレクトリ内の `anomaly_detection.ipynb` のセルを上から順に実行。最後のセルにて異常スコアの閾値 `threshold` が設定可能。最終セルは実行するたびに異なるミニバッチが読み込まれる。
 
-後日、実行方法やコンテナでの起動方法、ディレクトリツリーなどを追記。
+## ディレクトリ構造とファイルの説明
+```
+.
+├── .devcontainer
+├── imgs
+├── src
+│   ├── anomay_detection.ipynb
+│   ├── config.py
+│   └── main.py
+└── weights
+    ├── Dis_highest_performance... .pth
+    └── Gen_highest_performance... .pth
+```
+- `.devcontainer`
 
-## 結果
+  Dockerfileなどを格納。
+
+- `anomaly_detection.ipynb`
+
+  学習済みの重みを読み込み、異常検知を行うためのnotebook。
+
+- `config.py`
+
+  ハイパーパラメタなどの設定を書き込むファイル。
+
+- `main.py`
+
+  初期値から訓練を行う際に実行するファイル。
+
+- `Dis_highest_performance... .pth`
+
+  MNISTの `0` を正常、 `1` を異常として学習済みのパラメタ（Discriminator）。
+
+- `Gen_highest_performance... .pth`
+
+  MNISTの `0` を正常して学習済みのパラメタ（Generator）。異常検知の際は用いない。
+
+
+## 訓練時のtest setによる結果
 MNISTの `0` を正常、 `1` を異常として学習。
 
 ![上段：正常潜在変数、下段：異常潜在変数](imgs/Gen_img_zdim100__epoch159_iter1440.png)

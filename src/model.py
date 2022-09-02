@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# import torch
 import torch.nn as nn
-# from torchvision import models  # transforms
-
-# import config as c
 
 
 class MLP_Generator(nn.Module):
@@ -18,9 +14,8 @@ class MLP_Generator(nn.Module):
         )
 
         self.layer2 = nn.Sequential(
-            # nn.utils.spectral_norm(nn.Linear(256, 512)),  # 128, 256
             nn.Linear(512, 1024, bias=False),
-            nn.BatchNorm1d(1024),  # 512
+            nn.BatchNorm1d(1024),
             nn.ReLU(inplace=True),
         )
 
@@ -42,20 +37,18 @@ class MLP_Discriminator(nn.Module):
         super(MLP_Discriminator, self).__init__()
 
         self.layer1 = nn.Sequential(
-            nn.utils.spectral_norm(nn.Linear(in_dim, 1024, bias=False)),  # in_dim, 256
+            nn.utils.spectral_norm(nn.Linear(in_dim, 1024, bias=False)),
             nn.LeakyReLU(0.2, inplace=True),
-        )  # 0.1 → 0.2へ変更  #256->128
+        )
 
         self.layer2 = nn.Sequential(
-            nn.utils.spectral_norm(nn.Linear(1024, 512, bias=False)),  # 256, 128
-            # nn.BatchNorm1d(256),
+            nn.utils.spectral_norm(nn.Linear(1024, 512, bias=False)),
             nn.LeakyReLU(0.2, inplace=True),
-        )  # 0.1 → 0.2へ変更  #64
+        )
 
         self.last = nn.Sequential(
-            # nn.utils.spectral_norm(nn.Linear(256, 1))
             nn.Linear(512, 1, bias=False)
-        )  # 128, 1
+        )
 
     def forward(self, x):
         out = self.layer1(x)

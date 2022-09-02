@@ -8,7 +8,6 @@ import config as c
 
 
 def latent_variable_generator(bs_nor, bs_ano):
-
     nor_mu = 0
     nor_sigma = 1
     ano_mu = 0
@@ -54,7 +53,7 @@ def from_buffer(buffer, num_of_imgs):
 
 
 def save_fake_images(fixed_fake_NOR, fixed_fake_ANO, iteration, epoch):
-    """fakeの画像をtorch_tensorから直接PNGに保存する"""
+    # fakeの画像をtorch_tensorから直接PNGに保存する
     gen_img_file_name = (c.OUTPUT_PATH + "Gen_img_" + "zdim" + str(c.Z_DIM) + "_" + "_epoch" + str(epoch) + "_iter" + str(iteration) + ".png")
     print("fixed_fake_NOR size = {}".format(fixed_fake_NOR.size()))
     visualize_fake_images_NOR = fixed_fake_NOR.detach()

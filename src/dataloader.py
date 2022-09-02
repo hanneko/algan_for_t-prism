@@ -1,40 +1,25 @@
 # -*- coding: utf-8 -*-
 
-# import glob
 import os
-# import random
-# from re import A
 
-# import torch
 import torch.utils.data as data
 import torchvision
-# from PIL import Image
-from torchvision import transforms  # , datasets
+from torchvision import transforms
 
 import config as c
 
-# PyTorchでValidation Datasetを作る方法
-# https://qiita.com/takurooo/items/ba8c509eaab080e2752c
-
-# https://tzmi.hatenablog.com/entry/2020/12/30/155341
-# Pytorchで学習のチェックポイントの保存
-
-# PyTorchによるMNISTデータセット(0,6の2種類の数字だけ)の用意について
-# https://teratail.com/questions/290046
-
 
 def make_mnist_dataloader(train):
-
     nor_cat = c.NORMAL_CATEGOLY
     ano_cat = c.ANOMALOUS_CATEGOLY
     t_v_ratio = c.TRAIN_VAL_RATIO
     bs_train = c.BATCH_SIZE_TRAIN
     bs_val = c.BATCH_SIZE_VAL
     bs_test = c.BATCH_SIZE_TEST
-    
+
     mean = c.MEAN
     std = c.STD
-    
+
     path = c.DATASET_PATH  # "../data"
     is_dir = os.path.isdir(path)
     print("../data/ ディレクトリの存在 = {}".format(is_dir))
@@ -46,12 +31,6 @@ def make_mnist_dataloader(train):
     else:
         os.makedirs(path)
 
-    # # データセットダウンロード済みかの確認(notでbool反転している)
-    # download = not os.path.isfile(path)
-    # print("MNISTデータセットダウンロード済み = {}".format(download))
-
-    # dataset_nor = torchvision.datasets.MNIST( root=path, train=train, transform=transforms.ToTensor(), download=download)
-    # dataset_ano = torchvision.datasets.MNIST(root=path, train=train, transform=transforms.ToTensor(), download=download)
     dataset_nor = torchvision.datasets.MNIST(
         root=path,
         train=train,
@@ -61,6 +40,7 @@ def make_mnist_dataloader(train):
         ]),
         download=True
     )
+
     dataset_ano = torchvision.datasets.MNIST(
         root=path,
         train=train,
@@ -79,7 +59,7 @@ def make_mnist_dataloader(train):
     dataset_ano.data = dataset_ano.data[mask_ano]
     dataset_ano.targets = dataset_ano.targets[mask_ano]
 
-    # dataset sprit train->train-val test->test
+    # dataset sprit, train -> train-val
     if train:  # Train-Val
         n_samples_nor = len(dataset_nor)
         n_samples_ano = len(dataset_ano)
@@ -105,8 +85,6 @@ def make_mnist_dataloader(train):
 
         dataloaders = [dataloader_test_nor, dataloader_test_ano]
 
-    # normalizeしなくて大丈夫？
-
     return dataloaders
 
 
@@ -116,6 +94,6 @@ class ImageTransform():
             transforms.ToTensor(),
             transforms.Normalize(mean, std)
         ])
-        
+
     def __call__(self, img):
         return self.data_transform(img)

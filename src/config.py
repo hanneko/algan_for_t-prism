@@ -49,22 +49,17 @@ G_LR, D_LR = 0.0002, 0.0001
 # Adamのベータ設定
 BETA_1, BETA_2 = 0.0, 0.9  # 0.0, 0.9 or 0.5, 0.999 pytorch default: (0.9, 0.999)
 
-
-
 ####### ALGAN独自のハイパーパラメタ #######
 Z_DIM = 100  # 潜在変数の次元
 ANO_SIGMA = 4  # 異常潜在変数のシグマ
-ALPHA = 0.75 
+ALPHA = 0.75
 XI = 0.75
 N_Z = 2  # 2
 N_DIS = 2  # 2
 
-
-
-# データロード高速化の設定。Windowsで実行の場合は不具合起こるため(未使用)
+# データロード高速化の設定。ピュアなWindows環境で実行の場合は不具合が発生する。
 # NUM_WORKERS = 4
 # PIN_MEMORY = False
 # DROP_LAST = True
 # P_WORKER = True
 CUDNN_BENCH = True
-

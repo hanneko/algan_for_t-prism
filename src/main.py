@@ -9,11 +9,10 @@ from model import MLP_Discriminator, MLP_Generator, weights_init
 from train import train_full_gan
 
 if __name__ == "__main__":
-
     z_dim = c.Z_DIM
 
-    G = MLP_Generator(z_dim=z_dim, out_dim=784)  # out_dim=512
-    D = MLP_Discriminator(in_dim=784)  # in_dim=512
+    G = MLP_Generator(z_dim=z_dim, out_dim=784)
+    D = MLP_Discriminator(in_dim=784)
 
     G.apply(weights_init).to(c.DEVICE).train()
     D.apply(weights_init).to(c.DEVICE).train()
@@ -28,7 +27,6 @@ if __name__ == "__main__":
         torch.backends.cudnn.benchmark = c.CUDNN_BENCH
 
     # create Data Loader
-
     dataloaders_train_val = make_mnist_dataloader(train=True)
     dataloaders_test = make_mnist_dataloader(train=False)
 
@@ -36,4 +34,3 @@ if __name__ == "__main__":
     train_full_gan(D, G, dataloaders_train_val, dataloaders_test)
 
     print("finish training!!")
-
