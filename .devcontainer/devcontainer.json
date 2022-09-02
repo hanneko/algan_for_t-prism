@@ -6,7 +6,7 @@
 		"dockerfile": "Dockerfile",
 		"context": ".."
 	},
-	// コンテナ作成時（厳密には作成後）に実行するコマンド
+	// コンテナ作成時（厳密には作成後）に実行されるコマンド
 	"postCreateCommand": "pip install -r .devcontainer/requirements.txt",
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
