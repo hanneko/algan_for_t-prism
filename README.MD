@@ -37,8 +37,8 @@ python main.py
 │   ├── config.py
 │   └── main.py
 └── weights
-    ├── Dis_highest_performance... .pth
-    └── Gen_highest_performance... .pth
+    ├── Dis_highest_performance__iter_1440_epoch_159.pth
+    └── Gen_highest_performance__iter_1440_epoch_159.pth
 ```
 - `.devcontainer`
 
@@ -56,11 +56,11 @@ python main.py
 
   初期値から訓練を行う際に実行するファイル。
 
-- `Dis_highest_performance... .pth`
+- `Dis_highest_performance__iter_1440_epoch_159.pth`
 
   MNISTの `0` を正常として学習済みのパラメタ（Discriminator）。
 
-- `Gen_highest_performance... .pth`
+- `Gen_highest_performance__iter_1440_epoch_159.pth`
 
   MNISTの `0` を正常して学習済みのパラメタ（Generator）。異常検知の際は用いない。
 
@@ -72,13 +72,21 @@ MNISTの `0` を正常として学習。
 
 上段：正常潜在変数\
 下段：異常潜在変数\
-による生成結果。
+による生成結果（159 epoch）。
+
 
 異常スコアのヒストグラム
+
 ![ヒストグラム](imgs/Test_histogram__iter_1440_epoch_159.png)
 
-AUROC
+ROC曲線
+
 ![AUROC](imgs/Test_ROC__iter_1440_epoch_159.png)
+
+AUC
+```text
+0.998470736312146
+```
 
 
 ## Misc Notes

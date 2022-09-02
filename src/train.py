@@ -130,7 +130,7 @@ def train_full_gan(D, G, dataloaders_train_val, dataloaders_test):
                     D_buf_NOR_loss = criterion(D_buf_NOR.view(-1), torch.full((D_buf_NOR.size(0),), 0.0).to(c.DEVICE))  # fake = 0.0
                     D_buf_ANO_loss = criterion(D_buf_ANO.view(-1), torch.full((D_buf_ANO.size(0),), 0.0).to(c.DEVICE))  # fake = 0.0
 
-                    # ロスの合算 to do: αとξをパラメタに
+                    # ロスの合算
                     D_loss_buf = D_real_loss + c.ALPHA*(c.XI*D_fake_NOR_loss + (1.0-c.XI)*D_buf_NOR_loss) + (1.0-c.ALPHA)*(c.XI*D_fake_ANO_loss + (1.0-c.XI)*D_buf_ANO_loss)
 
                     D_loss_buf.backward()
