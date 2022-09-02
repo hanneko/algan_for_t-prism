@@ -8,7 +8,7 @@
 ## How To Use This Code
 You will need:
 
-- [PyTorch](https://PyTorch.org/) version 1.8.1 later, matplotlib, scikit-learn
+- [PyTorch](https://PyTorch.org/) version 1.8.1 later, matplotlib, scikit-learn.
 - Recommendation: [NVIDIA GPU CLOUD PyTorch Docker Container](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch)
 
   `nvcr.io/nvidia/pytorch:22.07-py3` satisfies all the requirements.
@@ -58,7 +58,7 @@ python main.py
 
 - `Dis_highest_performance... .pth`
 
-  MNISTの `0` を正常、 `1` を異常として学習済みのパラメタ（Discriminator）。
+  MNISTの `0` を正常として学習済みのパラメタ（Discriminator）。
 
 - `Gen_highest_performance... .pth`
 
@@ -66,15 +66,18 @@ python main.py
 
 
 ## 訓練時のtest setによる結果
-MNISTの `0` を正常、 `1` を異常として学習。
+MNISTの `0` を正常として学習。
 
 ![上段：正常潜在変数、下段：異常潜在変数](imgs/Gen_img_zdim100__epoch159_iter1440.png)
 
 上段：正常潜在変数\
-下段：異常潜在変数
+下段：異常潜在変数\
+による生成結果。
 
+異常スコアのヒストグラム
 ![ヒストグラム](imgs/Test_histogram__iter_1440_epoch_159.png)
 
+AUROC
 ![AUROC](imgs/Test_ROC__iter_1440_epoch_159.png)
 
 
